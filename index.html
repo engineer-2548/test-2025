@@ -3,372 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>การแข่งขันจิตรกรรมเด็กและเยาวชน ครั้งที่ 2 | กรุงเทพ เมืองแห่งอนาคต</title>
+    <meta name="description" content="บ้านและสวน Pets Village - งานบ้านและสวนแฟร์ Midyear 2025 | 1-10 สิงหาคม 2568 ที่ไบเทคบางนา">
+    <meta property="og:title" content="บ้านและสวน Pets Village - งานบ้านและสวนแฟร์ Midyear 2025">
+    <meta property="og:description" content="มาเจอกับกิจกรรมสนุกๆ สำหรับคนรักสัตว์เลี้ยง พร้อมโปรโมชั่นพิเศษมากมาย">
+    <meta property="og:image" content="https://lh5.googleusercontent.com/d/1sEQAvxo6sLTbXuNBoaWhy2_F-oOnKzOY">
+    
+    <title>🐾 บ้านและสวน Pets Village - Midyear 2025</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;900&family=Prompt:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         * {
             font-family: 'Kanit', 'Prompt', sans-serif;
-            cursor: none;
         }
         
-        /* Custom Cursor */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s, background-color 0.3s;
-            mix-blend-mode: difference;
-        }
-        
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.3s ease;
-        }
-        
-        .cursor-expand {
-            transform: scale(2);
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-        
-        /* Smooth scroll */
+        /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
-            overflow-x: hidden;
         }
         
-        /* Hide scrollbar but keep functionality */
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
         
         ::-webkit-scrollbar-track {
-            background: #1a1a1a;
+            background: var(--scroll-track);
         }
         
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border-radius: 5px;
+            border-radius: 4px;
         }
         
-        /* Loading screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 1s, visibility 1s;
+        /* CSS Variables for theme */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f3f4f6;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --accent: #ff6b6b;
+            --scroll-track: #f1f1f1;
         }
         
-        .loading-screen.loaded {
-            opacity: 0;
-            visibility: hidden;
+        [data-theme="dark"] {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #f3f4f6;
+            --text-secondary: #d1d5db;
+            --accent: #ff8787;
+            --scroll-track: #2a2a3e;
         }
         
-        .loader {
-            width: 60px;
-            height: 60px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Lightbox Styles */
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
+        /* Base styles */
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             transition: all 0.3s ease;
         }
         
-        .lightbox.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 90%;
-            position: relative;
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-        
-        .lightbox.active .lightbox-content {
-            transform: scale(1);
-        }
-        
-        .lightbox-image {
-            max-width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
-        }
-        
-        .lightbox-close {
-            position: absolute;
-            top: -40px;
-            right: -40px;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .lightbox-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-        
-        /* Gallery Grid */
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            cursor: pointer;
-            transform: translateZ(0);
-            transition: transform 0.5s ease;
-        }
-        
-        .gallery-item:hover {
-            transform: scale(1.05);
-            z-index: 10;
-        }
-        
-        .gallery-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.7));
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1;
-        }
-        
-        .gallery-item:hover::before {
-            opacity: 1;
-        }
-        
-        .gallery-item-text {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            color: white;
-            z-index: 2;
-            transform: translateY(100%);
-            transition: transform 0.3s;
-        }
-        
-        .gallery-item:hover .gallery-item-text {
-            transform: translateY(0);
-        }
-        
-        /* Interactive Cards */
-        .interactive-card {
-            position: relative;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.5s;
-        }
-        
-        .interactive-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s;
-            transform: rotate(45deg);
-        }
-        
-        .interactive-card:hover::before {
-            opacity: 1;
-        }
-        
-        .interactive-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-        
-        /* Parallax Scene */
-        .parallax-scene {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
-            background: #000;
-        }
-        
-        .parallax-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            will-change: transform;
-        }
-        
-        /* Paint splash effect */
-        .paint-splash {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.6;
-            animation: morph 20s ease-in-out infinite;
-        }
-        
-        @keyframes morph {
-            0%, 100% {
-                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-                transform: rotate(0deg) scale(1);
+        /* Paw print animation */
+        @keyframes pawPrint {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
             }
             50% {
-                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-                transform: rotate(180deg) scale(1.1);
+                opacity: 1;
+                transform: scale(1) rotate(-15deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5) rotate(-30deg);
             }
         }
         
-        /* Floating 3D elements */
-        .floating-element {
-            position: absolute;
-            animation: float3d 10s ease-in-out infinite;
+        .paw-print {
+            position: fixed;
+            font-size: 30px;
+            pointer-events: none;
+            animation: pawPrint 2s ease-out;
+            z-index: 100;
+        }
+        
+        /* Floating pets animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Bounce animation */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .bounce-animation {
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        /* Wiggle animation */
+        @keyframes wiggle {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-5deg);
+            }
+            75% {
+                transform: rotate(5deg);
+            }
+        }
+        
+        .wiggle-animation {
+            animation: wiggle 1s ease-in-out infinite;
+        }
+        
+        /* Gradient background animation */
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(-45deg, #ff6b6b, #4ecdc4, #45b7d1, #feca57);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        /* Card hover effect */
+        .card-hover {
+            transition: all 0.3s ease;
             transform-style: preserve-3d;
         }
         
-        @keyframes float3d {
-            0%, 100% {
-                transform: translateY(0) translateZ(0) rotateY(0deg);
-            }
-            25% {
-                transform: translateY(-30px) translateZ(50px) rotateY(90deg);
-            }
-            50% {
-                transform: translateY(-50px) translateZ(-50px) rotateY(180deg);
-            }
-            75% {
-                transform: translateY(-20px) translateZ(30px) rotateY(270deg);
-            }
+        .card-hover:hover {
+            transform: translateY(-10px) rotateX(-5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
         
-        /* Interactive hotspots */
-        .hotspot {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid #fff;
-            border-radius: 50%;
-            cursor: pointer;
-            animation: pulse 2s ease-in-out infinite;
-            transition: all 0.3s;
-        }
-        
+        /* Pulse animation for CTA */
         @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
             }
-            50% {
-                transform: scale(1.1);
-                box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+            70% {
+                box-shadow: 0 0 0 20px rgba(255, 107, 107, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
             }
         }
         
-        .hotspot:hover {
-            transform: scale(1.2);
-            background: rgba(255, 255, 255, 0.4);
+        .pulse-animation {
+            animation: pulse 2s infinite;
         }
         
-        .hotspot-tooltip {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
+        /* Pet emoji rain */
+        @keyframes petRain {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
         
-        .hotspot:hover .hotspot-tooltip {
-            opacity: 1;
-            visibility: visible;
-            bottom: 60px;
+        .pet-rain {
+            position: fixed;
+            top: -50px;
+            font-size: 30px;
+            animation: petRain linear infinite;
+            pointer-events: none;
+            z-index: 1;
         }
         
-        /* Gradient text */
-        .gradient-text {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f7dc6f);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 300% 300%;
-            animation: gradient-shift 5s ease infinite;
-        }
-        
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Reveal animations */
+        /* Reveal animation */
         .reveal {
             opacity: 0;
-            transform: translateY(60px);
-            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(30px);
+            transition: all 0.8s ease;
         }
         
         .reveal.active {
@@ -376,380 +220,332 @@
             transform: translateY(0);
         }
         
-        /* Navigation */
-        .nav-menu {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            padding: 10px 20px;
-            display: flex;
-            gap: 20px;
+        /* Glow effect */
+        .glow {
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
         }
         
-        .nav-item {
-            color: white;
-            text-decoration: none;
-            padding: 5px 15px;
-            border-radius: 25px;
-            transition: all 0.3s;
+        /* Custom toggle switch */
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s;
         }
         
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .toggle-switch.active {
+            background: #4ecdc4;
         }
         
-        /* Responsive */
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(30px);
+        }
+        
+        /* Loading animation */
+        .loading-dots span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            margin: 0 2px;
+            animation: loadingDots 1.4s infinite ease-in-out both;
+        }
+        
+        .loading-dots span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+        
+        .loading-dots span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+        
+        @keyframes loadingDots {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+        
+        /* Mobile responsive */
         @media (max-width: 768px) {
-            .cursor, .cursor-follower {
-                display: none;
+            .pet-rain {
+                font-size: 20px;
             }
             
-            * {
-                cursor: auto;
-            }
-            
-            .nav-menu {
-                display: none;
-            }
-            
-            .lightbox-close {
-                top: 20px;
-                right: 20px;
+            .paw-print {
+                font-size: 20px;
             }
         }
     </style>
 </head>
-<body class="bg-black text-white overflow-x-hidden">
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader"></div>
+<body>
+    <!-- Theme Toggle -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-2 bg-white dark:bg-gray-800 rounded-full px-4 py-2 shadow-lg">
+        <span class="text-sm">🌞</span>
+        <div class="toggle-switch" id="themeToggle"></div>
+        <span class="text-sm">🌙</span>
     </div>
     
-    <!-- Custom Cursor -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-follower" id="cursorFollower"></div>
+    <!-- Pet Rain Effect -->
+    <div id="petRainContainer"></div>
     
-    <!-- Navigation Menu -->
-    <nav class="nav-menu">
-        <a href="#home" class="nav-item">หน้าแรก</a>
-        <a href="#gallery" class="nav-item">ผลงาน</a>
-        <a href="#details" class="nav-item">รายละเอียด</a>
-        <a href="#register" class="nav-item">สมัคร</a>
-    </nav>
-    
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-        <div class="lightbox-content">
-            <button class="lightbox-close" onclick="closeLightbox()">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            <img src="" alt="" class="lightbox-image" id="lightboxImage">
-        </div>
-    </div>
-    
-    <!-- Hero Section with Interactive Scene -->
-    <section id="home" class="parallax-scene">
-        <!-- Background layers -->
-        <div class="parallax-layer" data-speed="0.5">
-            <div class="paint-splash" style="width: 600px; height: 600px; background: radial-gradient(circle, rgba(255, 107, 107, 0.3), transparent); top: -200px; left: -200px;"></div>
-            <div class="paint-splash" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(78, 205, 196, 0.3), transparent); bottom: -200px; right: -200px; animation-delay: -10s;"></div>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden gradient-bg">
+        <!-- Floating pets background -->
+        <div class="absolute inset-0">
+            <span class="absolute top-10 left-10 text-6xl float-animation" style="animation-delay: 0s;">🐕</span>
+            <span class="absolute top-20 right-20 text-5xl float-animation" style="animation-delay: 1s;">🐈</span>
+            <span class="absolute bottom-20 left-20 text-4xl float-animation" style="animation-delay: 2s;">🐰</span>
+            <span class="absolute bottom-10 right-10 text-5xl float-animation" style="animation-delay: 3s;">🦜</span>
+            <span class="absolute top-1/2 left-1/3 text-6xl float-animation" style="animation-delay: 4s;">🐾</span>
         </div>
         
-        <!-- Floating 3D elements -->
-        <div class="floating-element" style="top: 10%; left: 10%;">
-            <div class="text-6xl">🎨</div>
-        </div>
-        <div class="floating-element" style="top: 20%; right: 15%; animation-delay: -3s;">
-            <div class="text-5xl">🖌️</div>
-        </div>
-        <div class="floating-element" style="bottom: 20%; left: 20%; animation-delay: -6s;">
-            <div class="text-4xl">🎭</div>
-        </div>
-        
-        <!-- Interactive hotspots -->
-        <div class="hotspot" style="top: 30%; left: 25%;" onclick="showInfo('creativity')">
-            <div class="hotspot-tooltip">ความคิดสร้างสรรค์</div>
-        </div>
-        <div class="hotspot" style="top: 60%; right: 30%;" onclick="showInfo('future')">
-            <div class="hotspot-tooltip">อนาคตกรุงเทพฯ</div>
-        </div>
-        
-        <!-- Main content -->
         <div class="container mx-auto px-4 relative z-10">
-            <div class="text-center">
-                <h1 class="text-6xl md:text-8xl font-black mb-6 reveal">
-                    🎨 การแข่งขันจิตรกรรม
+            <div class="text-center text-white">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 reveal">
+                    <span class="wiggle-animation inline-block">🌟</span>
+                    บ้านและสวน Pets Village
                 </h1>
-                <h1 class="text-5xl md:text-7xl font-bold mb-4 gradient-text reveal" style="transition-delay: 0.2s">
-                    เด็กและเยาวชน ครั้งที่ 2
-                </h1>
-                <h2 class="text-3xl md:text-5xl font-semibold mb-8 reveal" style="transition-delay: 0.4s">
-                    "กรุงเทพ เมืองแห่งอนาคต"
+                <h2 class="text-2xl md:text-4xl font-semibold mb-6 reveal" style="animation-delay: 0.2s;">
+                    งานบ้านและสวนแฟร์ Midyear 2025
                 </h2>
+                <p class="text-xl md:text-2xl mb-8 reveal" style="animation-delay: 0.4s;">
+                    กิจกรรมแน่นๆ เอาใจคนรักเจ้าขนฟู
+                    <span class="bounce-animation inline-block">🐱🐶</span>
+                </p>
                 
-                <a href="https://docs.google.com/forms/d/1SJSfuoC4rxYmx_9ewDBWaRZLI87-4FLJBNi-752BBv8/viewform?edit_requested=true" 
-                   target="_blank"
-                   class="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 px-10 py-4 rounded-full font-bold text-xl shadow-2xl transform hover:scale-110 transition-all duration-300 reveal" style="transition-delay: 0.6s">
-                    🎉 สมัครเข้าร่วมการแข่งขัน
+                <a href="#details" class="inline-block bg-white text-pink-500 px-8 py-4 rounded-full font-bold text-lg transform hover:scale-110 transition-all duration-300 pulse-animation reveal" style="animation-delay: 0.6s;">
+                    ดูรายละเอียดเพิ่มเติม
                 </a>
             </div>
         </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
     </section>
     
-    <!-- Gallery Section -->
-    <section id="gallery" class="min-h-screen py-20 bg-gradient-to-b from-black via-gray-900 to-black">
+    <!-- Event Details Section -->
+    <section id="details" class="py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
         <div class="container mx-auto px-4">
-            <h2 class="text-5xl font-bold text-center mb-16 gradient-text reveal">🖼️ แกลเลอรีผลงาน</h2>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Gallery Item 1 -->
-                <div class="gallery-item reveal" onclick="openLightbox('https://lh5.googleusercontent.com/d/13c10M6Ki4xfHnVBCeZPH39y2bj-g16jv')">
-                    <img src="https://lh5.googleusercontent.com/d/13c10M6Ki4xfHnVBCeZPH39y2bj-g16jv" 
-                         alt="ผลงานจิตรกรรม" 
-                         class="w-full h-64 object-cover">
-                    <div class="gallery-item-text">
-                        <h3 class="text-xl font-bold">ผลงานการแข่งขัน</h3>
-                        <p class="text-sm opacity-80">คลิกเพื่อดูขนาดใหญ่</p>
+            <div class="max-w-4xl mx-auto">
+                <!-- Main Image -->
+                <div class="mb-12 reveal">
+                    <img src="https://lh5.googleusercontent.com/d/1sEQAvxo6sLTbXuNBoaWhy2_F-oOnKzOY" 
+                         alt="บ้านและสวน Pets Village" 
+                         class="w-full rounded-3xl shadow-2xl card-hover">
+                </div>
+                
+                <!-- Event Info Cards -->
+                <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg card-hover reveal">
+                        <div class="text-4xl mb-4 text-center">📅</div>
+                        <h3 class="text-xl font-bold text-center mb-2">วันที่จัดงาน</h3>
+                        <p class="text-center text-gray-600 dark:text-gray-300">1-10 สิงหาคม 2568</p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg card-hover reveal" style="animation-delay: 0.1s;">
+                        <div class="text-4xl mb-4 text-center">📍</div>
+                        <h3 class="text-xl font-bold text-center mb-2">สถานที่</h3>
+                        <p class="text-center text-gray-600 dark:text-gray-300">ไบเทคบางนา Hall 98</p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg card-hover reveal" style="animation-delay: 0.2s;">
+                        <div class="text-4xl mb-4 text-center">⏰</div>
+                        <h3 class="text-xl font-bold text-center mb-2">เวลา</h3>
+                        <p class="text-center text-gray-600 dark:text-gray-300">10:00 - 21:00 น.</p>
                     </div>
                 </div>
                 
-                <!-- Gallery Item 2 - Placeholder -->
-                <div class="gallery-item reveal" style="transition-delay: 0.1s" onclick="showComingSoon()">
-                    <div class="w-full h-64 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="text-6xl mb-4">🎨</div>
-                            <p class="text-xl font-semibold">ผลงานปีที่แล้ว</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item-text">
-                        <h3 class="text-xl font-bold">ผลงานชนะเลิศ 2567</h3>
-                        <p class="text-sm opacity-80">เร็วๆ นี้</p>
+                <!-- Rules Section -->
+                <div class="bg-gradient-to-r from-pink-100 to-blue-100 dark:from-pink-900/30 dark:to-blue-900/30 rounded-3xl p-8 mb-12 reveal">
+                    <h3 class="text-2xl font-bold mb-6 text-center glow">
+                        ✨ ข้อปฏิบัติสำหรับน้องๆ ✨
+                    </h3>
+                    <div class="bg-white/80 dark:bg-gray-800/80 rounded-2xl p-6">
+                        <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                            <span class="text-2xl mr-2">🐾</span>
+                            น้องๆ ที่จะเข้าร่วมงาน ต้องอยู่ภายใต้การดูแลของเจ้าของ และต้องอยู่ในรถเข็น ตะกร้า หรือ กระเป๋าเท่านั้นนะคะ เพื่อให้ไม่เป็นการรบกวนผู้เดินงานท่านอื่น
+                        </p>
                     </div>
                 </div>
                 
-                <!-- Gallery Item 3 - Placeholder -->
-                <div class="gallery-item reveal" style="transition-delay: 0.2s" onclick="showComingSoon()">
-                    <div class="w-full h-64 bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center">
+                <!-- Countdown Timer -->
+                <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl mb-12 reveal">
+                    <h3 class="text-2xl font-bold text-center mb-6">⏳ นับถอยหลังสู่งาน</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="countdown">
                         <div class="text-center">
-                            <div class="text-6xl mb-4">🏆</div>
-                            <p class="text-xl font-semibold">รางวัลพิเศษ</p>
+                            <div class="text-4xl font-bold text-pink-500" id="days">00</div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">วัน</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-blue-500" id="hours">00</div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">ชั่วโมง</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-green-500" id="minutes">00</div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">นาที</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-yellow-500" id="seconds">00</div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">วินาที</p>
                         </div>
                     </div>
-                    <div class="gallery-item-text">
-                        <h3 class="text-xl font-bold">ผลงานดีเด่น</h3>
-                        <p class="text-sm opacity-80">เร็วๆ นี้</p>
+                </div>
+                
+                <!-- Activities Preview -->
+                <div class="mb-12">
+                    <h3 class="text-3xl font-bold text-center mb-8 reveal">🎉 กิจกรรมภายในงาน</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-gradient-to-br from-pink-400 to-pink-600 text-white rounded-2xl p-6 text-center card-hover reveal">
+                            <div class="text-4xl mb-3">🏆</div>
+                            <h4 class="font-bold">Pet Contest</h4>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-400 to-blue-600 text-white rounded-2xl p-6 text-center card-hover reveal" style="animation-delay: 0.1s;">
+                            <div class="text-4xl mb-3">🛍️</div>
+                            <h4 class="font-bold">Pet Shopping</h4>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-400 to-green-600 text-white rounded-2xl p-6 text-center card-hover reveal" style="animation-delay: 0.2s;">
+                            <div class="text-4xl mb-3">🎪</div>
+                            <h4 class="font-bold">Pet Show</h4>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-400 to-purple-600 text-white rounded-2xl p-6 text-center card-hover reveal" style="animation-delay: 0.3s;">
+                            <div class="text-4xl mb-3">🎁</div>
+                            <h4 class="font-bold">Lucky Draw</h4>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA Section -->
+                <div class="text-center reveal">
+                    <h3 class="text-2xl font-bold mb-4">มาเจอกันที่บ้านและสวน Pets Village</h3>
+                    <p class="text-xl mb-8 text-gray-600 dark:text-gray-300">กดเซฟไว้ แล้วมาสนุกกันที่งานนะคะ</p>
+                    
+                    <!-- Social Share Buttons -->
+                    <div class="flex justify-center gap-4 mb-8">
+                        <button onclick="shareOnFacebook()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full flex items-center gap-2 transform hover:scale-110 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                            แชร์
+                        </button>
+                        <button onclick="copyLink()" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-full flex items-center gap-2 transform hover:scale-110 transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                            </svg>
+                            คัดลอกลิงก์
+                        </button>
+                    </div>
+                    
+                    <!-- Hashtags -->
+                    <div class="flex flex-wrap justify-center gap-2 text-sm">
+                        <span class="bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-300 px-3 py-1 rounded-full">#WorldofFairyTales</span>
+                        <span class="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 px-3 py-1 rounded-full">#บ้านและสวนPetsVillage</span>
+                        <span class="bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300 px-3 py-1 rounded-full">#บ้านและสวนPets</span>
+                        <span class="bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 px-3 py-1 rounded-full">#บ้านและสวนแฟร์midyear2025</span>
+                        <span class="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-300 px-3 py-1 rounded-full">#BSMidyear2025</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Interactive Details Section -->
-    <section id="details" class="min-h-screen py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="text-5xl font-bold text-center mb-16 reveal">📋 รายละเอียดการแข่งขัน</h2>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <!-- Interactive Card 1 -->
-                <div class="interactive-card reveal" onclick="showDetail('theme')">
-                    <div class="text-4xl mb-4">🎨</div>
-                    <h3 class="text-2xl font-bold mb-3">หัวข้อการประกวด</h3>
-                    <p class="text-lg opacity-90">"กรุงเทพ เมืองแห่งอนาคต"</p>
-                    <p class="text-sm opacity-70 mt-2">คลิกเพื่อดูรายละเอียด</p>
-                </div>
-                
-                <!-- Interactive Card 2 -->
-                <div class="interactive-card reveal" style="transition-delay: 0.1s" onclick="showDetail('size')">
-                    <div class="text-4xl mb-4">📐</div>
-                    <h3 class="text-2xl font-bold mb-3">ขนาดผลงาน</h3>
-                    <p class="text-lg opacity-90">กระดาษขนาด A2</p>
-                    <p class="text-sm opacity-70 mt-2">ไม่จำกัดเทคนิค</p>
-                </div>
-                
-                <!-- Interactive Card 3 -->
-                <div class="interactive-card reveal" style="transition-delay: 0.2s" onclick="showDetail('equipment')">
-                    <div class="text-4xl mb-4">🎯</div>
-                    <h3 class="text-2xl font-bold mb-3">อุปกรณ์</h3>
-                    <p class="text-lg opacity-90">การประกวดเตรียมกระดาษให้</p>
-                    <p class="text-sm opacity-70 mt-2">จัดเตรียมอุปกรณ์อื่นๆ มาเอง</p>
-                </div>
-                
-                <!-- Interactive Card 4 -->
-                <div class="interactive-card reveal" style="transition-delay: 0.3s" onclick="showDetail('age1')">
-                    <div class="text-4xl mb-4">👦</div>
-                    <h3 class="text-2xl font-bold mb-3">รุ่นอายุ 12-14 ปี</h3>
-                    <p class="text-lg opacity-90">16 สิงหาคม 2568</p>
-                    <p class="text-sm opacity-70 mt-2">เวลา 09:00 - 16:00 น.</p>
-                </div>
-                
-                <!-- Interactive Card 5 -->
-                <div class="interactive-card reveal" style="transition-delay: 0.4s" onclick="showDetail('age2')">
-                    <div class="text-4xl mb-4">👧</div>
-                    <h3 class="text-2xl font-bold mb-3">รุ่นอายุ 15-17 ปี</h3>
-                    <p class="text-lg opacity-90">17 สิงหาคม 2568</p>
-                    <p class="text-sm opacity-70 mt-2">เวลา 09:00 - 16:00 น.</p>
-                </div>
-                
-                <!-- Interactive Card 6 -->
-                <div class="interactive-card reveal" style="transition-delay: 0.5s" onclick="showDetail('exhibition')">
-                    <div class="text-4xl mb-4">🏛️</div>
-                    <h3 class="text-2xl font-bold mb-3">นิทรรศการ</h3>
-                    <p class="text-lg opacity-90">9-21 กันยายน 2568</p>
-                    <p class="text-sm opacity-70 mt-2">ณ หอศิลปกรุงเทพ (BACC)</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-gray-900 py-8 text-center">
+        <p class="text-gray-600 dark:text-gray-400">
+            © 2025 บ้านและสวน Pets Village | All rights reserved
+        </p>
+    </footer>
     
-    <!-- Countdown & Registration Section -->
-    <section id="register" class="min-h-screen py-20 bg-gradient-to-b from-black via-purple-900/20 to-black">
-        <div class="container mx-auto px-4">
-            <h2 class="text-5xl font-bold text-center mb-12 gradient-text reveal">⏰ นับถอยหลังปิดรับสมัคร</h2>
-            
-            <!-- Countdown -->
-            <div class="max-w-4xl mx-auto mb-16">
-                <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 reveal">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="countdown">
-                        <div class="text-center">
-                            <div class="text-6xl font-black gradient-text" id="days">00</div>
-                            <div class="text-sm opacity-70 mt-2">วัน</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-6xl font-black gradient-text" id="hours">00</div>
-                            <div class="text-sm opacity-70 mt-2">ชั่วโมง</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-6xl font-black gradient-text" id="minutes">00</div>
-                            <div class="text-sm opacity-70 mt-2">นาที</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-6xl font-black gradient-text" id="seconds">00</div>
-                            <div class="text-sm opacity-70 mt-2">วินาที</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- QR Code -->
-            <div class="text-center">
-                <div class="inline-block bg-white p-8 rounded-3xl shadow-2xl reveal gallery-item" 
-                     onclick="openLightbox('https://lh5.googleusercontent.com/d/1CFKcvf0ImU069OM3RfWf_mu9ydxW6RpZ')">
-                    <img src="https://lh5.googleusercontent.com/d/1CFKcvf0ImU069OM3RfWf_mu9ydxW6RpZ" 
-                         alt="QR Code สมัครเข้าร่วมกิจกรรม" 
-                         class="w-64 h-64 mx-auto mb-6">
-                    <p class="text-gray-800 text-xl font-semibold">คลิกเพื่อขยาย QR Code</p>
-                </div>
-                
-                <div class="mt-12">
-                    <a href="https://docs.google.com/forms/d/1SJSfuoC4rxYmx_9ewDBWaRZLI87-4FLJBNi-752BBv8/viewform?edit_requested=true" 
-                       target="_blank"
-                       class="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 px-12 py-6 rounded-full font-bold text-xl shadow-2xl transform hover:scale-110 transition-all duration-300 reveal">
-                        สมัครผ่าน Google Form
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Toast notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300">
+        <span id="toastMessage">ข้อความ</span>
+    </div>
     
     <script>
-        // Loading screen
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loadingScreen').classList.add('loaded');
-            }, 1000);
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        // Check saved theme or default to light
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'dark') {
+            themeToggle.classList.add('active');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.classList.toggle('active');
         });
         
-        // Custom cursor
-        const cursor = document.getElementById('cursor');
-        const cursorFollower = document.getElementById('cursorFollower');
+        // Pet rain effect
+        const petEmojis = ['🐕', '🐈', '🐰', '🦜', '🐹', '🐠', '🐢'];
+        const petRainContainer = document.getElementById('petRainContainer');
         
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+        function createPetRain() {
+            const pet = document.createElement('span');
+            pet.className = 'pet-rain';
+            pet.textContent = petEmojis[Math.floor(Math.random() * petEmojis.length)];
+            pet.style.left = Math.random() * 100 + '%';
+            pet.style.animationDuration = Math.random() * 3 + 5 + 's';
+            pet.style.animationDelay = Math.random() * 2 + 's';
+            
+            petRainContainer.appendChild(pet);
             
             setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 100);
-        });
-        
-        // Cursor hover effect
-        document.querySelectorAll('a, button, .gallery-item, .interactive-card, .hotspot').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('cursor-expand');
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('cursor-expand');
-            });
-        });
-        
-        // Lightbox functions
-        function openLightbox(imageSrc) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImage = document.getElementById('lightboxImage');
-            lightboxImage.src = imageSrc;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
+                pet.remove();
+            }, 8000);
         }
         
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+        // Create pet rain periodically
+        setInterval(createPetRain, 2000);
         
-        // Click outside to close lightbox
-        document.getElementById('lightbox').addEventListener('click', (e) => {
-            if (e.target.id === 'lightbox') {
-                closeLightbox();
-            }
-        });
-        
-        // ESC key to close lightbox
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeLightbox();
-            }
-        });
-        
-        // Interactive functions
-        function showDetail(type) {
-            const details = {
-                theme: 'แสดงจินตนาการถึงกรุงเทพฯ ในอนาคต ผ่านมุมมองของเยาวชน',
-                size: 'กระดาษ A2 (420 x 594 มม.) ไม่จำกัดเทคนิคการวาด',
-                equipment: 'กระดาษวาดเขียนจัดเตรียมให้ นำอุปกรณ์วาดเขียนมาเอง',
-                age1: 'รุ่นอายุ 12-14 ปี แข่งขันวันที่ 16 สิงหาคม 2568',
-                age2: 'รุ่นอายุ 15-17 ปี แข่งขันวันที่ 17 สิงหาคม 2568',
-                exhibition: 'จัดแสดงผลงานผู้ชนะและผู้เข้าร่วม ที่หอศิลปกรุงเทพ'
-            };
+        // Paw print on click
+        document.addEventListener('click', (e) => {
+            const pawPrint = document.createElement('span');
+            pawPrint.className = 'paw-print';
+            pawPrint.textContent = '🐾';
+            pawPrint.style.left = e.clientX - 15 + 'px';
+            pawPrint.style.top = e.clientY - 15 + 'px';
             
-            alert(details[type] || 'คลิกเพื่อดูรายละเอียดเพิ่มเติม');
-        }
-        
-        function showInfo(type) {
-            const info = {
-                creativity: 'ปลดปล่อยความคิดสร้างสรรค์ไร้ขีดจำกัด',
-                future: 'จินตนาการถึงกรุงเทพฯ ในอนาคต'
-            };
+            document.body.appendChild(pawPrint);
             
-            alert(info[type] || 'ข้อมูลเพิ่มเติม');
-        }
+            setTimeout(() => {
+                pawPrint.remove();
+            }, 2000);
+        });
         
-        function showComingSoon() {
-            alert('เร็วๆ นี้! ติดตามผลงานที่น่าสนใจได้ในไม่ช้า');
-        }
-        
-        // Countdown Timer
+        // Countdown timer
         function updateCountdown() {
-            const endDate = new Date('2025-08-08T23:59:59').getTime();
+            const eventDate = new Date('2025-08-01T10:00:00').getTime();
             const now = new Date().getTime();
-            const timeLeft = endDate - now;
+            const timeLeft = eventDate - now;
             
             if (timeLeft > 0) {
                 const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
@@ -762,31 +558,17 @@
                 document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
                 document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
             } else {
-                document.getElementById('countdown').innerHTML = '<div class="text-3xl font-bold text-red-400 col-span-4">หมดเวลารับสมัครแล้ว</div>';
+                document.getElementById('countdown').innerHTML = '<div class="col-span-4 text-2xl font-bold text-center">🎉 งานเริ่มแล้ว! 🎉</div>';
             }
         }
         
         setInterval(updateCountdown, 1000);
         updateCountdown();
         
-        // Parallax effect
-        document.addEventListener('mousemove', (e) => {
-            const layers = document.querySelectorAll('.parallax-layer');
-            const x = (window.innerWidth - e.pageX) / 100;
-            const y = (window.innerHeight - e.pageY) / 100;
-            
-            layers.forEach((layer, index) => {
-                const speed = layer.dataset.speed || 0.5;
-                const xPos = x * speed * (index + 1);
-                const yPos = y * speed * (index + 1);
-                layer.style.transform = `translate(${xPos}px, ${yPos}px)`;
-            });
-        });
-        
-        // Intersection Observer for animations
+        // Reveal animation on scroll
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
@@ -801,14 +583,55 @@
             observer.observe(el);
         });
         
-        // Smooth scroll for navigation
-        document.querySelectorAll('.nav-item').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-            });
+        // Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+            }, 3000);
+        }
+        
+        // Social share functions
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('มาเจอกันที่บ้านและสวน Pets Village งานบ้านและสวนแฟร์ Midyear 2025');
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+        }
+        
+        function copyLink() {
+            const dummy = document.createElement('textarea');
+            document.body.appendChild(dummy);
+            dummy.value = window.location.href;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            
+            showToast('คัดลอกลิงก์แล้ว! 📋');
+        }
+        
+        // Dynamic background color based on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = scrolled / maxScroll;
+            
+            // Update gradient based on scroll
+            const hue = scrollPercent * 360;
+            document.querySelector('.gradient-bg').style.filter = `hue-rotate(${hue}deg)`;
+        });
+        
+        // Add loading animation when page loads
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1s ease';
+                document.body.style.opacity = '1';
+            }, 100);
         });
     </script>
 </body>
